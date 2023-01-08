@@ -1,21 +1,35 @@
-import { Stack,Heading, HStack ,Text, Img, Button } from '@chakra-ui/react'
-import React from 'react'
+import {
+  Stack,
+  Heading,
+  HStack,
+  Text,
+  Img,
+  Button,
+  VStack,
+} from "@chakra-ui/react";
+import React from "react";
 import img3 from "../assets/repair3.webp";
 
 export const Mechanic = () => {
   return (
-    <Stack my='16'>
-        
-        <HStack>
-          <Text p='16' >
-          <Heading pb='8'>Apply to be a Mechanic</Heading>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit laborum, recusandae ut tempora veritatis explicabo possimus amet provident nisi, atque eaque quae voluptatibus quo quod exercitationem doloribus distinctio sit doloremque.
-           <br/><br/>
-            <Button mt='8'   colorScheme={'green'}>Apply</Button>
+    <Stack pt={"20vh"}>
+      <HStack>
+        <VStack p={["2", "10"]}>
+          <Heading pb="4" fontSize={["18", "4xl"]} alignSelf="flex-start">
+            Apply to be a Mechanic
+          </Heading>
+          <Text fontSize={["12", "xl"]}>
+            AutoCare as a mechanic and accept the work you want. Free to join
+            with great perks and discounts.
+            <br />
+            <br />
+            <Button colorScheme={"green"} size={["sm", "lg"]}>
+              Apply
+            </Button>
           </Text>
-          <Img src={img3}/>
-          
-        </HStack>
+        </VStack>
+        <Img src={img3} />
+      </HStack>
     </Stack>
-  )
-}
+  );
+};

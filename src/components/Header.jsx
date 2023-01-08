@@ -7,7 +7,7 @@ import logo from "../assets/logo.svg";
 export const Header = () => {
   return (
     <>
-      <Box zIndex={"sticky"}>
+      <Box zIndex={"sticky"} w="100vw">
         <HStack
           p="8"
           shadow={"base"}
