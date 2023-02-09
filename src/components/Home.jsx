@@ -14,6 +14,9 @@ import {
   CardHeader,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
+  Tabs,
+  Tab,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdPlace } from "react-icons/md";
@@ -73,8 +76,9 @@ export const Home = () => {
                         value={values.zipcode}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        placeholder="Enter Zipcode"
+                        placeholder="Enter Pincode"
                       />
+                      <InputRightElement children={<Tabs mr='20' size='sm' variant={'soft-rounded'} colorScheme={'green'}><Tab> location</Tab></Tabs>}/>
                     </InputGroup>
                     <Text>
                       {errors.zipcode && touched.zipcode ? (
@@ -101,7 +105,7 @@ export const Home = () => {
                   </FormControl>
                   <Button mx={"30%"} colorScheme={"green"} type="submit">
                     Register
-                  </Button>
+                  </Button>  
                 </form>
               </CardBody>
             </Card>
@@ -152,10 +156,10 @@ export const Home = () => {
         <Box id="mechanic">
           <Mechanic />
         </Box>
-        <Box>
+        <Box my='10'>
           <GetPrice />
         </Box>
-        <Box>
+        <Box my='40'>
           <BookRepairFault />
         </Box>
       </Container>

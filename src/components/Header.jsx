@@ -15,7 +15,7 @@ export const Header = () => {
           w={"100vw"}
           h="13vh"
         >
-          <Image w={["80px", "100px"]} src={logo} marginRight="10" />
+          <Image w={["80px", "130px"]} src={logo} marginRight="10" />
           <ButtonGroup spacing="10">
             <Button variant={"unstyled"} color="white">
               <Link to={"/"}>Home</Link>

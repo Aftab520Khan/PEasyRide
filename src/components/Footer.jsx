@@ -53,7 +53,7 @@ export const Footer = () => {
             <Heading size={"md"} textTransform="uppercase" textAlign={"center"}>
               AutoCare
             </Heading>
-            <Text>All right received</Text>
+            <Text>© 2023 All rights reserved</Text>
           </VStack>
           <VStack w={"full"}>
             <Heading size={"md"} textTransform="uppercase" textAlign={"center"}>
@@ -61,19 +61,21 @@ export const Footer = () => {
             </Heading>
             <a href="https://youtube.com/watch?v=7dXBN8a-X2U&si=EnSIkaIECMiOmarE">
               <Button colorScheme={"whiteAlpha"} variant="link">
-                {" "}
+           
                 Youtube
               </Button>
             </a>
 
+            <a href="https://github.com/Aftab520Khan/PEasyRide">
             <Button colorScheme={"whiteAlpha"} variant="link">
-              {" "}
               GitHub
             </Button>
+            </a>
+            <a>
             <Button colorScheme={"whiteAlpha"} variant="link">
-              {" "}
               Instagram
             </Button>
+            </a>
           </VStack>
         </Stack>
       </Box>

@@ -12,7 +12,7 @@ import img3 from "../assets/repair3.webp";
 
 export const Mechanic = () => {
   return (
-    <Stack pt={"20vh"}>
+    <Stack pt={"10vh"}>
       <HStack>
         <VStack p={["2", "10"]}>
           <Heading pb="4" fontSize={["18", "4xl"]} alignSelf="flex-start">
