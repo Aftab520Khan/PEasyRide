@@ -6,11 +6,15 @@ import {
   Img,
   Button,
   VStack,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
-import img3 from "../assets/repair3.webp";
+import img3 from "./../../assets/repair3.webp";
+import {useNavigate} from 'react-router-dom'
+
 
 export const Mechanic = () => {
+  const nav = useNavigate()
   return (
     <Stack pt={"10vh"}>
       <HStack>
@@ -23,13 +27,16 @@ export const Mechanic = () => {
             with great perks and discounts.
             <br />
             <br />
-            <Button colorScheme={"green"} size={["sm", "lg"]}>
+            <Button colorScheme={"green"} size={["sm", "lg"]} onClick={()=>{nav('/mapply')}}>
               Apply
             </Button>
           </Text>
         </VStack>
-        <Img src={img3} />
+        <Box w={['auto','full']}>
+        <Img src={img3}  />
+        </Box>
       </HStack>
+      
     </Stack>
   );
 };
