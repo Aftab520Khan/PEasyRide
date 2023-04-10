@@ -18,50 +18,84 @@ import {
   Tabs,
   Tab,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdPlace } from "react-icons/md";
 import { BiCar } from "react-icons/bi";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import img1 from "../assets/repair1.webp";
-import img2 from "../assets/repair2.jpg";
-import img3 from "../assets/repair3.webp";
-import rb from "../assets/rb.png";
-import s from "../assets/s.png";
-import b from "../assets/b.png";
-import { Mechanic } from "./Mechanic";
-import { Service } from "./Service";
+import img1 from "./../../assets/repair1.webp";
+import img2 from "./../../assets/repair2.jpg";
+import img3 from "./../../assets/repair3.webp";
+import rb from "./../../assets/rb.png";
+import s from "./../../assets/s.png";
+import b from "./../../assets/b.png";
+import { Mechanic } from "../Mechanic/Mechanic";
+import { Service } from "../MOther/Service";
 import TypewriterComponent from "typewriter-effect";
 import { useFormik } from "formik";
-import { registration } from "./validation";
-import { GetPrice } from "./GetPrice";
-import { BookRepairFault } from "./BookRepairFault";
+import { registration } from "../validation";
+import { GetPrice } from "../MOther/GetPrice";
+import { BookRepairFault } from "../MOther/BookRepairFault";
+import { CustomerReview } from "../MOther/CustomerReview";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const initialValues = { zipcode: "", rnumber: "" };
 
 export const Home = () => {
+  const nav = useNavigate();
+  const [widths, setwidths] = useState({});
+
+  const getUserData = async () => {
+    try {
+      const res = await axios.post('/api/user/getUserData',{},{
+        headers:{
+          Authorization:'Bearer ' + localStorage.getItem('token'),
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Accept":"application/json"
+        }
+      })
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    function resize() {
+      if (window.innerWidth <= 750) {
+        setwidths(true);
+      } else {
+        setwidths(false);
+      }
+    }
+    resize();
+    getUserData();
+  }, []);
+
   const { values, errors, handleChange, touched, handleBlur, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: registration,
       onSubmit: (values, action) => {
         console.log(values);
+        nav("/login");
         action.resetForm();
       },
     });
   return (
     <Box>
       <HStack>
-        <MyCorousel />
+        {widths ? null : <MyCorousel />}
         <VStack>
           <Heading>AutoCare</Heading>
-
           <Heading size={20}>
             <AutoType />
           </Heading>
 
-          <VStack p={"10"}>
-            <Card width="sm" bgColor="gray.200" p={10} filter="blur">
+          <VStack p={["2", "10"]}>
+            <Card w={["auto", "sm"]} bgColor="gray.200" p={10} filter="blur">
               <CardHeader align="center">
                 <Heading borderBottom="2px solid darkgreen">REGISTER</Heading>
               </CardHeader>
@@ -78,11 +112,11 @@ export const Home = () => {
                         onBlur={handleBlur}
                         placeholder="Enter Pincode"
                       />
-                      <InputRightElement children={<Tabs mr='20' size='sm' variant={'soft-rounded'} colorScheme={'green'}><Tab> location</Tab></Tabs>}/>
                     </InputGroup>
-                    <Text>
+
+                    <Text color="red">
                       {errors.zipcode && touched.zipcode ? (
-                        <Text color="red">{errors.zipcode}</Text>
+                        <>{errors.zipcode}</>
                       ) : null}
                     </Text>
                     <br />
@@ -97,15 +131,20 @@ export const Home = () => {
                         placeholder="Your registration number"
                       />
                     </InputGroup>
-                    <Text>
+                    <Text color="red">
                       {errors.rnumber && touched.rnumber ? (
-                        <Text color="red">{errors.rnumber}</Text>
+                        <>{errors.rnumber}</>
                       ) : null}
                     </Text>
+                    <Button colorScheme={"green"} mt="5" variant={"link"}>
+                      <Link to={"/booking/car"}>
+                        I don't know my register number
+                      </Link>
+                    </Button>
                   </FormControl>
                   <Button mx={"30%"} colorScheme={"green"} type="submit">
                     Register
-                  </Button>  
+                  </Button>
                 </form>
               </CardBody>
             </Card>
@@ -113,9 +152,9 @@ export const Home = () => {
         </VStack>
       </HStack>
 
-      <Box align="center" my="28">
+      <Box align="center" my="20">
         <Heading>Book a mechanic in few click </Heading>
-        <HStack pt="20" spacing={10} mx={[0, "18vw"]} wrap="wrap">
+        <HStack pt="20" spacing={10} mx={[0, "18vw"]} wrap={["wrap", ""]}>
           <Box w={["fit-content", "18vw"]}>
             <Img src={rb} w="50%" />
             <Heading size={18}>Choose your repairs</Heading>
@@ -124,7 +163,6 @@ export const Home = () => {
               mechanic for you.
             </Text>
           </Box>
-
           <Box w={["fit-content", "18vw"]}>
             <Img src={b} w="50%" />
             <Heading size={18}>Pick a date , time & location</Heading>
@@ -133,7 +171,6 @@ export const Home = () => {
               & time of your choice.
             </Text>
           </Box>
-
           <Box w={["fit-content", "18vw"]}>
             <Img src={s} w="50%" />
             <Heading size={18}>Sit back and relax!</Heading>
@@ -143,7 +180,7 @@ export const Home = () => {
             </Text>
           </Box>
         </HStack>
-        <Button mt="32" right={18} colorScheme={"green"}>
+        <Button mt="10" colorScheme={"green"}>
           Frequently asked question
         </Button>
       </Box>
@@ -156,10 +193,15 @@ export const Home = () => {
         <Box id="mechanic">
           <Mechanic />
         </Box>
-        <Box my='10'>
+
+        <Box>
+          <CustomerReview />
+        </Box>
+
+        <Box my="10">
           <GetPrice />
         </Box>
-        <Box my='40'>
+        <Box my="40">
           <BookRepairFault />
         </Box>
       </Container>
@@ -173,9 +215,9 @@ export const AutoType = () => {
       <TypewriterComponent
         options={{
           strings: [
-            "A car is not only a vehicle, sometimes it’s just like a dream.",
+            "A car is not only a vehicle,<br/> sometimes <br/>it's just like a dream.",
             "We Repair Your Dreams.",
-            "Drive your car at full speed, but after getting serviced.",
+            "Drive your car at full speed,<br/> but after getting<br/> serviced.",
           ],
           delay: 30,
           deleteSpeed: 20,
@@ -197,15 +239,15 @@ export const MyCorousel = () => (
     showThumbs={false}
     infiniteLoop
   >
-    <Box w={"full"} h={["md", "2xl"]}>
+    <Box w={["", "full"]} h={["md", "2xl"]}>
       <Img src={img2} h={"full"} objectFit="cover" />
     </Box>
 
-    <Box w={"full"} h={["md", "2xl"]}>
+    <Box w={["", "full"]} h={["md", "2xl"]}>
       <Img src={img1} h={"full"} objectFit="cover" />
     </Box>
 
-    <Box w={"full"} h={["md", "2xl"]}>
+    <Box w={["", "full"]} h={["md", "2xl"]}>
       <Img src={img3} h={"full"} objectFit="cover" />
     </Box>
   </Carousel>

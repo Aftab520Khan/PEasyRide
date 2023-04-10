@@ -58,32 +58,25 @@ export const BookRepairFault = () => {
             <TabPanel>
               <HStack spacing={['2','20']}>
                 
-                  <HStack>
-                  <VStack>
+                 <VStack >
                     <Button variant={"unstyled"}>Body Repairs</Button>
                     <Button variant={"unstyled"}>Brakes</Button>  
-                    </VStack>
-                  </HStack>
-              
-                
-                  <HStack>
-                  <VStack>
-                    <Button variant={"unstyled"}>Clutch</Button>
                     <Button variant={"unstyled"}>Cooling System</Button>
                     </VStack>
-                  </HStack>
-                
-                  <HStack>
-                <VStack>
-                  
+
+                   <VStack >
+                    <Button variant={"unstyled"}>Clutch</Button>
                     <Button variant={"unstyled"}>
                       Heating and Air Condition
                     </Button>
                     <Button variant={"unstyled"}>
                       Pre-Purchase Inspections
                     </Button>
-                </VStack>
-                </HStack>
+                    </VStack>
+
+                   
+                   
+                    
 
               </HStack>
             </TabPanel>

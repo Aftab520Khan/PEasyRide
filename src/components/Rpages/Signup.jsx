@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.svg";
+import logo from "./../../assets/logo.svg";
 import {
   Text,
   Button,
@@ -11,9 +11,9 @@ import {
   HStack,
   Image,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { signUpValidation } from "./validation";
+import { signUpValidation } from "../validation";
 
 const initialValues = {
   name: "",
@@ -22,33 +22,57 @@ const initialValues = {
 };
 
 export const Signup = () => {
+  const nav = useNavigate();
+
   const { values, errors, handleChange, touched, handleBlur, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: signUpValidation,
       onSubmit: (values, action) => {
         console.log(values);
+        PostData();
         action.resetForm();
       },
     });
 
+  const PostData = async () => {
+    const res = await fetch("/api/user/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }),
+    });
+    const data = await res.json();
+    if (data.status === 422 || !data) {
+      window.alert("Invalid Credentials");
+      console.log("Invalid Credentials");
+    } else {
+      window.alert("Successfully ");
+      console.log("Successfully ");
+      nav("/login");
+    }
+  };
+
   return (
     <>
-      <Container maxW="container.xl" h="100vh" p="16">
-        <form onSubmit={handleSubmit}>
+      <Container maxW="container.xl" h={["auto", "100vh"]} p="16">
+        <form method="POST" onSubmit={handleSubmit}>
           <VStack
             alignItems={"stretch"}
             spacing="6"
-            w={["full", "96"]}
+            w={["auto", "96"]}
             m="auto"
             my={"16"}
             bgColor="gray.900"
-            p="10"
+            p={["5", "10"]}
             color="white"
             borderRadius={15}
           >
-            <HStack spacing={6} alignSelf={"center"}>
-              <Image src={logo} w={["80px", "100px"]} />
+            <HStack spacing={[2, 6]} alignSelf={"center"}>
+              <Image src={logo} w={["60px", "100px"]} />
               <Heading textAlign={"center"}>EasyRide</Heading>
             </HStack>
 
@@ -94,7 +118,6 @@ export const Signup = () => {
             {errors.password && touched.password ? (
               <Text color={"red"}>{errors.password}</Text>
             ) : null}
-
             <Button colorScheme="green" type="submit">
               Sign In
             </Button>

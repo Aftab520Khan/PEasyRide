@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "add": 1,
+    "name": "Clutch replacement"
+  },
+  {
+    "id": 2,
+    "add": 2,
+    "name": "Brakes pads replacement"
+  },
+  {
+    "id": 3,
+    "add": 3,
+    "name": "Cooling System repair"
+  },
+  {
+    "id": 4,
+    "add": 4,
+    "name": "Battery replacement"
+  },
+  {
+    "id": 5,
+    "add": 5,
+    "name": "Body Repairs"
+  },
+  {
+    "id": 6,
+    "add": 6,
+    "name": "Engine oil replacement"
+  }
+]
