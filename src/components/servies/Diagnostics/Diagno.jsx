@@ -13,11 +13,12 @@ import {
 } from "@chakra-ui/react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { GrFormNextLink } from "react-icons/gr";
-import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
+import DPayment from "../../Payment/DPayment";
 
 export const Diagno = () => {
  
-
+const nav = useNavigate()
 
   return (
     <>
@@ -92,7 +93,7 @@ export const Diagno = () => {
                 </Text>
               </Box>
               <Box align="center">
-                <Button left={100} variant={"outline"} colorScheme="green">
+                <Button  left={100} variant={"outline"} colorScheme="green">
                   Add
                 </Button>
               </Box>
@@ -134,6 +135,7 @@ export const Diagno = () => {
             pr="10"
             color={'gray.900'}
             colorScheme={"green"}
+            onClick={()=>nav('/dpayment')}
           >
             Next
             <GrFormNextLink fontSize={"28"} />
