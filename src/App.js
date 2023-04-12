@@ -18,6 +18,8 @@ import { Diagno } from "./components/servies/Diagnostics/Diagno";
 import { Repairss } from "./components/servies/Repairs/Repairss";
 import { Protected } from "./components/Protected";
 import { Public } from "./components/Public";
+import Payment from "./components/Payment/Payment";
+import DPayment from "./components/Payment/DPayment";
 
 export const App = () => {
   return (
@@ -33,7 +35,7 @@ export const App = () => {
               
             }
           />
-          <Route path="/se" element={<Selected />} />
+          <Route path="/booking/car/se" element={<Selected />} />
           <Route
             path="/login"
             element={
@@ -51,15 +53,17 @@ export const App = () => {
               
             }
           />
-          <Route path="/repair" element={<Repairss />} />
-          <Route path="/diagnostics" element={<Diagno />} />
-          <Route path="/ppi" element={<PPI />} />
+          <Route path="/booking/car/repair" element={<Repairss />} />
+          <Route path="/booking/car/diagnostics" element={<Diagno />} />
+          <Route path="/booking/car/ppi" element={<PPI />} />
           <Route path="/mapply" element={<MApply />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/booking/car" element={<Cars />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/user" element={<User />} />
           <Route path="/mechanic" element={<Mechanic />} />
+          <Route path="/payment" element={<Payment/>} />
+          <Route path="/dpayment" element={<DPayment/>} />
         </Routes>
         <Footer />
       </Router>

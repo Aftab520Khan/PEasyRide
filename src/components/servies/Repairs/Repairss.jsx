@@ -1,12 +1,7 @@
 import React ,{useState} from "react";
 import data from "./Repair.json";
 import { Link } from "react-router-dom";
-// import  {
-//   AiFillDelete,
-//   AiFillFileAdd,
-//   AiFillMinusCircle,
-//   AiFillPlusCircle,
-// } from "react-icons/ai";
+
 import {
   VStack,
   Container,
@@ -15,34 +10,37 @@ import {
   Stack,
   Checkbox,
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
-import { add } from "../../Store/repairSlice";
+import {useNavigate} from 'react-router-dom'
 
 
+export const Repairss = (props) => {
+  const nav = useNavigate()
 
-export const Repairss = () => {
-  const dispatch = useDispatch();
-  const [first, setfirst] = useState([])
+  const [userinfo, setUserInfo] = useState({
+    languages: [],
+    response: [],
+  });
 
   
 
-  const handle = (user,e) => {
-    
-    dispatch(add(user));
-    
-  };
-
-  const handleChange =(e,id)=>{
-    console.log(e.target.value)
-    const activeData = document.getElementById(id).checkVisibility()
-    console.log(activeData);
-    console.log(activeData);
-    if (activeData === true) {
-      setfirst(old =>[...old,e.target.value])
-     
-    } else {
-      setfirst(first.filter(value =>value !==e.target.value))
-      }
+  const handleChange =(e)=>{
+    const { value, checked } = e.target;
+    const { languages } = userinfo; 
+    console.log(`${value} is ${checked}`);
+    // Case 1 : The user checks the box
+    if (checked) {
+      setUserInfo({
+        languages: [...languages, value],
+        response: [...languages, value],
+      });
+    }
+    // Case 2  : The user unchecks the box
+    else {
+      setUserInfo({
+        languages: languages.filter((e) => e !== value),
+        response: languages.filter((e) => e !== value),
+      });
+    }   
   }
 
   return (
@@ -80,19 +78,14 @@ export const Repairss = () => {
                 </Heading>
               </div>
             ))}
-            <Button colorScheme="green" mt="5" onClick={handle}>
-              <Link to={"/booking"}>Next</Link>
+            <Button colorScheme="green" mt="5" onClick={()=>nav('/')}>
+             Next
             </Button>
           
           </VStack>
-
-         {
-          first.map(
-            (a,i) => <p key={i}>{a}</p>
-          )
-         }
         </form>
       </Container>
     </>
   );
 };
+

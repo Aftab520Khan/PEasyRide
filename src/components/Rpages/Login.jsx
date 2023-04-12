@@ -24,47 +24,43 @@ export const Login = (props) => {
   const nav = useNavigate();
   const toast = useToast()
 
-  const handlSubmit =  async ()=>{
-    // const res = await fetch("/api/user/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: values.email,
-    //     password: values.password,
-    //   }),
-    // });
-    //   const data = await res.json();
-    //   if (!data === 400) {
-    //     console.log("Invalid Credentials");
-    //   } else {
-    //     localStorage.setItem('token',res.data.token)
-    //     console.log(" Login Successfully ");
-    //     nav('/')
-    //   }
-    
-    try {
-      const res  = await axios.post('/api/user/login',values)
-      if(res.data.success){
-        localStorage.setItem("token",res.data.token);
-        toast({
-          title:'Login Successfully',
-          status:'success',
+  
+  
+    const PostData = async () => {
+      const res = await fetch("/api/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          
+          email: values.email,
+          password: values.password,
+        }),
+      });
+      const data = await res.json();
+      if (data.status === 422 || !data) {
+       toast(
+        {
+          title:'Invalid email and password',
+          status:'error',
           isClosable:true,
           position:'top'
-        })
-        console.log('Login Successfully')
-        nav('/')
-      }else{
-        console.log(res.data.message)
+        }
+       )
+        console.log("Invalid Credentials");
+      } else {
+        toast(
+          {
+            title:'Successfully logged in ',
+            status:'success',
+            isClosable:true,
+            position:'top'
+          })
+        console.log("Successfully ");
+        nav("/");
       }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    };
 
- 
+  
   
     const { values, errors, handleChange, touched, handleBlur,handleSubmit } =
     useFormik({
@@ -72,7 +68,7 @@ export const Login = (props) => {
       validationSchema: loginValidation,
       onSubmit: (values, action) => {
         console.log(values);
-        handlSubmit();
+        PostData();
         action.resetForm();
         
       },

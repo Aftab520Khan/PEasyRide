@@ -19,12 +19,15 @@ export const Footer = () => {
               size="md"
               textTransform={"uppercase"}
               textAlign="center"
-            >
+            > <Link align="center" to="/contact">
               Contact us
-            </Heading>
-            <Link align="center" to="/contact">
-              Query
-            </Link>
+              </Link>
+              </Heading>
+           
+              <Text>
+                AutoCare opposite Nirmal lifestyle  Sonapur Bhandup West
+              </Text>
+            
           </VStack>
           <VStack
             p="4"

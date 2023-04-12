@@ -46,21 +46,7 @@ export const Home = () => {
   const nav = useNavigate();
   const [widths, setwidths] = useState({});
 
-  const getUserData = async () => {
-    try {
-      const res = await axios.post('/api/user/getUserData',{},{
-        headers:{
-          Authorization:'Bearer ' + localStorage.getItem('token'),
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Accept":"application/json"
-        }
-      })
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
 
   useEffect(() => {
     function resize() {
@@ -71,7 +57,7 @@ export const Home = () => {
       }
     }
     resize();
-    getUserData();
+   
   }, []);
 
   const { values, errors, handleChange, touched, handleBlur, handleSubmit } =
@@ -80,7 +66,7 @@ export const Home = () => {
       validationSchema: registration,
       onSubmit: (values, action) => {
         console.log(values);
-        nav("/login");
+        nav("/booking/car/se");
         action.resetForm();
       },
     });
